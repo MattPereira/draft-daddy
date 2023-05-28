@@ -1,0 +1,15 @@
+### Blockers
+
+- the hard part is that underdog dynamically loads the divs that show the players so elements that you create to overlay dont apply to whole list and are deleted as you scroll
+
+
+- player names are not only unique thing we also could use the data-id attribute
+
+
+```
+
+<div tabindex="0" class="styles__playerCellWrapper__lTn52" role="button" data-id="60908585-cbf3-4af3-9daf-75859e8b7c3a">...</div>
+
+```
+
+- how to identify player and match them to some specific overlay data
