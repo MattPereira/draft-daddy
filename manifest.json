@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
-      "runAt": "document_end",
+      "runAt": "document_idle",
       "matches": [
         "https://underdogfantasy.com/draft/*"
       ]
