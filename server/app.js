@@ -8,14 +8,13 @@ const { NotFoundError } = require("./expressError");
 
 const app = express();
 
-app.use(cors());
+const routes = require("./routes/routes");
 
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 
-app.get("/", (req, res) => {
-  return res.json({ message: "Hello world!" });
-});
+app.use("/", routes);
 
 /** Handle 404 errors -- if an endpoint that doesnt exist gets requested */
 app.use(function (req, res, next) {

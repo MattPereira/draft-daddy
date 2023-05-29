@@ -1,7 +1,7 @@
 console.log("Draft Caddy Initiated!");
 
 async function getData() {
-  const response = await fetch("https://ccgc.up.railway.app/");
+  const response = await fetch("https://draft-caddy.up.railway.app/");
   const data = await response.json();
   console.log(data);
 }
