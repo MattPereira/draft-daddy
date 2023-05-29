@@ -39,7 +39,8 @@ function addOverlay(playerDiv, data) {
     const div = document.createElement("div");
     div.textContent = item.text;
     div.style.color = item.color;
-    div.style.paddingLeft = "10px";
+    div.style.width = "50px";
+    div.style.textAlign = "center";
     overlayDiv.appendChild(div);
   });
 

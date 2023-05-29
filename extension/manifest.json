@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Draft Caddy",
   "version": "1.0",
-  "description": "Helps you track exposures and week 17",
+  "description": "Helps you track player exposures and playoff matchups",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
