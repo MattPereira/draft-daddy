@@ -1,4 +1,12 @@
-console.log("I am the draft caddy!");
+console.log("Draft Caddy Initiated!");
+
+async function getData() {
+  const response = await fetch("https://ccgc.up.railway.app/");
+  const data = await response.json();
+  console.log(data);
+}
+
+getData();
 
 // Create a new observer instance
 const observer = new MutationObserver((mutations) => {
@@ -43,7 +51,7 @@ function addOverlay(playerNameDiv) {
   // Mark that the parent div has childed added so we dont dupe overlay
   overlayTarget.classList.add("overlayed");
 
-  console.log("added new overlay!");
+  console.log("Added an overlay!");
 }
 
 // Start observing the entire document with configuration specifying to observe all child nodes and subtree nodes

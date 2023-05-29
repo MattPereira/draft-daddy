@@ -9,12 +9,21 @@
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
+  "oauth2": {
+    "client_id": "573756532891-jv1cht8rs2qr3jk6q2232k0nq7p7lkl4.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets.readonly"
+  ]
+  },
+  "permissions": [
+    "identity"
+  ],
   "content_scripts": [
     {
       "js": ["scripts/content.js"],
-      "runAt": "document_idle",
+      "runAt": "document_end",
       "matches": [
-        "https://underdogfantasy.com/draft/*"
+        "https://underdogfantasy.com/*"
       ]
     }
   ]

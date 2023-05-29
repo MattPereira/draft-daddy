@@ -13,3 +13,20 @@
 ```
 
 - how to identify player and match them to some specific overlay data
+
+
+
+### Main Features
+- Display exposure percentages for each player
+- Display week 17 opponent for each player
+
+
+
+
+### API Notes
+- https://sheets.googleapis.com/v4/spreadsheets/1sLENermMlKCZI79GOnil-X0rr_62FPoxlXjs7azNGDU/values/Exposure%20For%20Upload
+
+#### spreadsheetId : 1sLENermMlKCZI79GOnil-X0rr_62FPoxlXjs7azNGDU
+
+
+- front end auth with google is annoying to going to use express server backend 
