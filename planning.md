@@ -24,8 +24,10 @@
 
 
 ### API Notes
-- https://sheets.googleapis.com/v4/spreadsheets/1sLENermMlKCZI79GOnil-X0rr_62FPoxlXjs7azNGDU/values/Exposure%20For%20Upload
 
+```
+https://sheets.googleapis.com/v4/spreadsheets/1sLENermMlKCZI79GOnil-X0rr_62FPoxlXjs7azNGDU/values/Exposure%20For%20Ext
+```
 #### spreadsheetId : 1sLENermMlKCZI79GOnil-X0rr_62FPoxlXjs7azNGDU
 
 
