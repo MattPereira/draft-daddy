@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Draft Caddy",
+  "name": "DraftHub",
   "version": "1.0",
   "description": "Helps you track player exposures and playoff matchups",
   "icons": {
