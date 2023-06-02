@@ -1,19 +1,25 @@
-console.log("Draft Caddy Initiated!");
+console.log("Draft Caddy Initiated!!!!!");
 
 // Global variables
-let teamsToStack = [];
+let teamsToStack = new Set();
 let overlayData;
 
 // fetch data from server
 async function getOverlayData() {
-  const response = await fetch("https://draft-caddy.up.railway.app/");
-  const resAsJson = await response.json();
-  console.log("resAsJson", resAsJson);
-  overlayData = resAsJson.data;
+  try {
+    const response = await fetch("https://draft-caddy.up.railway.app/");
+    const resAsJson = await response.json();
+    console.log("resAsJson", resAsJson);
+    overlayData = resAsJson.data;
+  } catch (e) {
+    console.log("Error fetching overlay data", e);
+  }
 }
 
 // Function to manipulate DOM adding overlay
 function addOverlay(playerDiv) {
+  console.log("Adding an overlay...");
+
   // Get player id from data-id attribute on underdog draft page
   const playerId = playerDiv.getAttribute("data-id");
 
@@ -24,8 +30,9 @@ function addOverlay(playerDiv) {
   const playerTeam = playerTeamDiv[0].lastChild.innerText;
 
   // change color of player team from available player to red if team is in teamsToStack
-  if (teamsToStack.includes(playerTeam)) {
+  if (teamsToStack.has(playerTeam)) {
     playerTeamDiv[0].style.color = "#39FF14";
+    playerTeamDiv[0].previousElementSibling.style.color = "#39FF14";
   }
 
   // Destructure data from API call to use for overlay
@@ -46,6 +53,7 @@ function addOverlay(playerDiv) {
   const overlayDiv = document.createElement("div");
   overlayDiv.setAttribute("class", "overlay");
   overlayDiv.style.display = "flex";
+  overlayDiv.style.gap = "5px";
 
   const overlayItems = [
     { text: week16, color: "#00FFFF" },
@@ -58,7 +66,16 @@ function addOverlay(playerDiv) {
     div.textContent = item.text;
     div.style.color = item.color;
     div.style.width = "50px";
-    div.style.textAlign = "center";
+    div.style.display = "flex";
+    div.style.justifyContent = "center";
+    div.style.alignItems = "center";
+
+    // box week 16 and 17 if team is in teamsToStack
+    if (teamsToStack.has(item.text.replace(/@/g, ""))) {
+      console.log("bolding", item.text);
+      div.style.border = "1px solid white";
+    }
+
     overlayDiv.appendChild(div);
   });
 
@@ -66,33 +83,29 @@ function addOverlay(playerDiv) {
   overlayTarget.prepend(overlayDiv);
   // Mark that the parent div has childed added so we dont dupe overlay
   overlayTarget.classList.add("overlayed");
-
-  // console.log("Added an overlay!");
 }
 
-function startObservers() {
+function startObserver() {
   // Create a new observer instance
   const observer = new MutationObserver((mutations) => {
-    // Disconnect the observer to avoid detecting changes we are about to make
-    observer.disconnect();
-
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
-        // console.log("node", node);
         // Make sure the added node is an Element
         if (node.nodeType === Node.ELEMENT_NODE) {
-          node
-            .querySelectorAll(".styles__playerCellWrapper__lTn52")
-            .forEach((element) => {
-              addOverlay(element);
-            });
+          // if statement handles react rendering quirk
+          if (node.matches(".styles__playerCellWrapper__lTn52")) {
+            addOverlay(node);
+          } else {
+            // else statement handles all new player divs added after initial render
+            node
+              .querySelectorAll(".styles__playerCellWrapper__lTn52")
+              .forEach((element) => {
+                addOverlay(element);
+              });
+          }
         }
       });
     });
-
-    const availablePlayersContainer = document.querySelector(
-      ".styles__autoSizer__puLtf"
-    );
 
     // Target the divs that contain team abreviations for drafted players
     const teamsDraftedArr = Array.from(
@@ -100,20 +113,12 @@ function startObservers() {
     );
 
     // Update globally accessible array of teams drafted
-    teamsToStack = teamsDraftedArr.map((team) => {
-      return team.innerText;
-    });
-
-    console.log("teamsToStack", teamsToStack);
-
-    // Reconnect the observer
-    observer.observe(availablePlayersContainer, {
-      childList: true,
-      subtree: true,
+    teamsDraftedArr.forEach((team) => {
+      teamsToStack.add(team.innerText);
     });
   });
 
-  console.log("Starting observers on document...");
+  console.log("Starting observer on document...");
 
   // Start observing the entire document with configuration specifying to observe all child nodes and subtree nodes
   // this observer only starts one time
@@ -123,4 +128,4 @@ function startObservers() {
   });
 }
 
-getOverlayData().then(() => startObservers());
+getOverlayData().then(() => startObserver());
