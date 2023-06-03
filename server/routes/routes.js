@@ -12,8 +12,6 @@ const router = new express.Router();
 
 // brads exposures
 router.get("/", async function (req, res, next) {
-  const sheets = google.sheets("v4");
-
   // range grabbing first 300 rows of data from spreadsheet
   const sheetsApiResponse = await sheets.spreadsheets.values.get({
     spreadsheetId: "1qXX_OziGRULreow3w2YhvvJR__lYSyothvptO1MdZ3c",
