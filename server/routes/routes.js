@@ -13,19 +13,20 @@ const router = new express.Router();
 // brads exposures
 router.get("/", async function (req, res, next) {
   // range grabbing first 300 rows of data from spreadsheet
-  const sheetsApiResponse = await sheets.spreadsheets.values.get({
+  const response = await sheets.spreadsheets.values.get({
     spreadsheetId: "1qXX_OziGRULreow3w2YhvvJR__lYSyothvptO1MdZ3c",
-    range: "Combined Exposure!A1:Z300",
+    range: "Combined Exposure!A2:Z300",
     key: process.env.API_KEY,
   });
 
   // slicing first row because brad made some useless headers in google sheets
-  const rawData = sheetsApiResponse.data.values.slice(1);
+  // const rawData = sheetsApiResponse.data.values.slice(1);
+  const data = response.data.values;
 
   // the keys are the first item in raw data aray
-  const keys = rawData[0];
+  const keys = data[0];
   // the values are everything after the first item in raw data array
-  const values = rawData.slice(1);
+  const values = data.slice(1);
 
   // map over values array and create an object for each row instead of having a bunch of nested arrays
   const objectArray = values.map((row) => {
