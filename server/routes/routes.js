@@ -12,15 +12,14 @@ const router = new express.Router();
 
 // brads exposures
 router.get("/", async function (req, res, next) {
-  // range grabbing first 300 rows of data from spreadsheet
+  // range grabbing 300 rows of data from spreadsheet
+  // skipping over the first row because not needed for data -> "A2"
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: "1qXX_OziGRULreow3w2YhvvJR__lYSyothvptO1MdZ3c",
     range: "Combined Exposure!A2:Z300",
     key: process.env.API_KEY,
   });
 
-  // slicing first row because brad made some useless headers in google sheets
-  // const rawData = sheetsApiResponse.data.values.slice(1);
   const data = response.data.values;
 
   // the keys are the first item in raw data aray
