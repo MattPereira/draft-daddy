@@ -1,16 +1,18 @@
 console.log("Draft Caddy Initiated!!!!!");
 
 // Global variables
-let teamsToStack = new Set();
-let overlayData;
+let TEAMS_TO_STACK = new Set();
+let OVERLAY_OBJ;
 
 // fetch data from server
-async function getOverlayData() {
+async function getOVERLAY_OBJ() {
   try {
-    const response = await fetch("https://draft-caddy.up.railway.app/");
+    const response = await fetch(
+      "https://draft-caddy.up.railway.app/exposures/matt"
+    );
     const resAsJson = await response.json();
     console.log("resAsJson", resAsJson);
-    overlayData = resAsJson.data;
+    OVERLAY_OBJ = resAsJson.data;
   } catch (e) {
     console.log("Error fetching overlay data", e);
   }
@@ -18,8 +20,6 @@ async function getOverlayData() {
 
 // Function to manipulate DOM adding overlay
 function addOverlay(playerDiv) {
-  console.log("Adding an overlay...");
-
   // Get player id from data-id attribute on underdog draft page
   const playerId = playerDiv.getAttribute("data-id");
 
@@ -29,10 +29,11 @@ function addOverlay(playerDiv) {
   );
   const playerTeam = playerTeamDiv[0].lastChild.innerText;
 
-  // change color of player team from available player to red if team is in teamsToStack
-  if (teamsToStack.has(playerTeam)) {
+  // change color of player team from available player to red if team is in TEAMS_TO_STACK
+  if (TEAMS_TO_STACK.has(playerTeam)) {
     playerTeamDiv[0].style.color = "#39FF14";
     playerTeamDiv[0].previousElementSibling.style.color = "#39FF14";
+    playerTeamDiv[0].previousElementSibling.style.fontWeight = "bold";
   }
 
   // Destructure data from API call to use for overlay
@@ -40,7 +41,7 @@ function addOverlay(playerDiv) {
     ["Week 16"]: week16,
     ["Week 17"]: week17,
     ["Total Exposure"]: totalExposure,
-  } = overlayData[playerId];
+  } = OVERLAY_OBJ[playerId];
 
   // Select the div to play overlay text
   const overlayTarget = playerDiv.children[0].lastChild;
@@ -70,9 +71,8 @@ function addOverlay(playerDiv) {
     div.style.justifyContent = "center";
     div.style.alignItems = "center";
 
-    // box week 16 and 17 if team is in teamsToStack
-    if (teamsToStack.has(item.text.replace(/@/g, ""))) {
-      console.log("bolding", item.text);
+    // box week 16 and 17 if team is in TEAMS_TO_STACK ignoring @ symbol
+    if (TEAMS_TO_STACK.has(item.text.replace(/@/g, ""))) {
       div.style.border = "1px solid white";
     }
 
@@ -114,7 +114,7 @@ function startObserver() {
 
     // Update globally accessible array of teams drafted
     teamsDraftedArr.forEach((team) => {
-      teamsToStack.add(team.innerText);
+      TEAMS_TO_STACK.add(team.innerText);
     });
   });
 
@@ -128,4 +128,4 @@ function startObserver() {
   });
 }
 
-getOverlayData().then(() => startObserver());
+getOVERLAY_OBJ().then(() => startObserver());
