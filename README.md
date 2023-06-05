@@ -1,15 +1,9 @@
-[screen-capture (1).webm](https://github.com/MattPereira/underdog-draft-caddy/assets/73561520/33c57fde-5306-4097-860c-5f33194d1b1e)
 
+### WIP Database Schema
+https://drawsql.app/teams/no-fun-league/diagrams/drafthub
 
-
-### Google sheets API response
-
-![Screenshot from 2023-05-29 20-45-18](https://github.com/MattPereira/underdog-draft-caddy/assets/73561520/2584c783-a2ec-4646-a596-1cb98404a13e)
-
-
-### Google Sheet
-![Screenshot from 2023-05-29 20-44-00](https://github.com/MattPereira/underdog-draft-caddy/assets/73561520/9d1dc1c9-f7dc-4d3e-a0ab-29bd172b5d8b)
-
+### Django Docs
+https://docs.djangoproject.com/en/4.2/topics/db/models/
 
 
 ### Extension docs
