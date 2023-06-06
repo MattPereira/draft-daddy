@@ -36,9 +36,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# should we rename "exposures" app to "underdog"
 
 INSTALLED_APPS = [
-    "exposures.apps.ExposuresConfig",
+    "nfl.apps.NflConfig",
+    "underdog.apps.UnderdogConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -84,8 +86,8 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "drafthub",
-        "USER": "matthu",
+        "NAME": "draft_daemon",
+        "USER": "postgres",
         "PASSWORD": "",
         "HOST": "localhost",
         "PORT": "5432",

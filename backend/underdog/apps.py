@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ExposuresConfig(AppConfig):
+class UnderdogConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "exposures"
+    name = "underdog"
