@@ -4,6 +4,7 @@ console.log("Draft Caddy Initiated!!!!!");
 let TEAMS_TO_STACK = new Set();
 let OVERLAY_OBJ;
 
+/***** Grab overlay data from local json file using background.js *****/
 function getOverlayObj() {
   return new Promise((resolve, reject) => {
     // Request the data from the background script
@@ -16,7 +17,7 @@ function getOverlayObj() {
   });
 }
 
-/***** USE TO FETCH DATA FROM EXTERNAL API ****/
+/***** Fetch data from external api ****/
 // async function getOverlayObj() {
 //   try {
 //     const response = await fetch("https://draft-caddy.up.railway.app/");
@@ -70,7 +71,7 @@ function addOverlay(playerDiv) {
   const overlayItems = [
     { text: week16, color: "#00FFFF" },
     { text: week17, color: "#FF6EC7" },
-    { text: bradExposure, color: "yellow" },
+    { text: mattExposure, color: "yellow" },
   ];
 
   overlayItems.forEach((item) => {
