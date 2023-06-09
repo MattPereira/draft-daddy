@@ -14,7 +14,6 @@ export function CsvForm() {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("csvFile", data.csvFile[0]);
-    formData.append("userId", data.userId);
     console.log(data);
 
     try {
@@ -27,7 +26,7 @@ export function CsvForm() {
           },
         }
       );
-      console.log(response);
+      console.log("response", response);
     } catch (e) {
       console.log("ERROR", e.message);
     }
@@ -36,25 +35,26 @@ export function CsvForm() {
   console.log("errors", errors);
 
   return (
-    <div>
-      <h3 className="font-mono text-4xl text-center mb-3">Upload CSV</h3>
-      <form onSubmit={handleSubmit(onSubmit)} className="text-black">
-        <div>
+    <div className="border-white border-4 p-10 border rounded rounded-3xl">
+      <h3 className="font-cubano text-3xl text-center mb-5 text-white">
+        Upload CSV
+      </h3>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
           <input
-            {...register("userId", { required: true })}
-            type="number"
-            placeholder="user id"
+            {...register("csvFile")}
+            type="file"
+            accept=".csv"
+            name="csvFile"
+            id="csvFile"
+            className="bg-white"
           />
         </div>
-        <input
-          {...register("csvFile")}
-          type="file"
-          accept=".csv"
-          name="csvFile"
-          id="csvFile"
-        />
         <div className="text-end">
-          <button type="submit" className="bg-indigo-500 px-4 py-2 text-white">
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg font-cubano"
+          >
             Submit
           </button>
         </div>
