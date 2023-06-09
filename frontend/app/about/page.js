@@ -1,8 +1,6 @@
-import { Metadata } from "next";
-
 export const dynamic = "force-static"; // no necessary, just for demonstration
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "About Page",
   description: "Best Ball Draft Analytics",
 };

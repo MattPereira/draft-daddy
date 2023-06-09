@@ -1,7 +1,7 @@
 import Link from "next/link";
 // import Image from "next/image";
-// import { SignInButton, SignOutButton } from "../components/buttons";
-// import AuthCheck from "@/components/AuthCheck";
+import { SignInButton, SignOutButton } from "../components/buttons";
+import AuthCheck from "@/components/AuthCheck";
 
 const navItems = [
   { name: "About", href: "/about" },
@@ -24,11 +24,13 @@ export default function Navigation() {
             <Link href={item.href}>{item.name}</Link>
           </li>
         ))}
-        <li className="flex items-center">{/* <SignInButton /> */}</li>
+        <li className="flex items-center">
+          <SignInButton />
+        </li>
         <li>
-          {/* <AuthCheck> */}
-          {/* <SignOutButton /> */}
-          {/* </AuthCheck> */}
+          <AuthCheck>
+            <SignOutButton />
+          </AuthCheck>
         </li>
       </ul>
     </nav>
