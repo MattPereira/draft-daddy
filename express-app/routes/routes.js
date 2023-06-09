@@ -16,7 +16,7 @@ router.get("/", async function (req, res, next) {
   // skipping over the first row because not needed for data -> "A2"
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: "1qXX_OziGRULreow3w2YhvvJR__lYSyothvptO1MdZ3c",
-    range: "Combined Exposure!A2:Z300",
+    range: "Combined Exposure!A2:Z500",
     key: process.env.API_KEY,
   });
 

@@ -1,4 +1,4 @@
-console.log("Draft Caddy Initiated!!!!!");
+console.log("Draft Caddy Initiated!");
 
 // Global variables
 let TEAMS_TO_STACK = new Set();
@@ -40,11 +40,19 @@ function addOverlay(playerDiv) {
   );
   const playerTeam = playerTeamDiv[0].lastChild.innerText;
 
-  // change color of player team from available player to red if team is in TEAMS_TO_STACK
+  const playerName = playerTeamDiv[0].previousElementSibling.innerText;
+
+  // change color of player team from available player to green if team is in TEAMS_TO_STACK
   if (TEAMS_TO_STACK.has(playerTeam)) {
+    console.log(playerName, "from team", playerTeam, "is in", TEAMS_TO_STACK);
     playerTeamDiv[0].style.color = "#39FF14";
     playerTeamDiv[0].previousElementSibling.style.color = "#39FF14";
     playerTeamDiv[0].previousElementSibling.style.fontWeight = "bold";
+  }
+
+  if (!OVERLAY_OBJ[playerId]) {
+    console.log(`No overlay dataq for ${playerName}`);
+    return;
   }
 
   // Destructure data from API call to use for overlay
