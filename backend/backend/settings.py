@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # should we rename "exposures" app to "underdog"
 
 INSTALLED_APPS = [
+    "user.apps.UserConfig",
     "nfl.apps.NflConfig",
     "underdog.apps.UnderdogConfig",
     "django.contrib.admin",
@@ -47,7 +48,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",  # Django REST framework
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,7 +89,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "draft_daemon",
+        "NAME": "draft_daddy",
         "USER": "postgres",
         "PASSWORD": "",
         "HOST": "localhost",

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from user.models import Profile
 from nfl.models import Player
 
 # NOTES:
@@ -19,7 +19,7 @@ class Tournament(models.Model):
 
 
 class Draft(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     underdog_draft_id = models.UUIDField(unique=True)
     underdog_tournament = models.ForeignKey(
         Tournament, on_delete=models.CASCADE, to_field="id"

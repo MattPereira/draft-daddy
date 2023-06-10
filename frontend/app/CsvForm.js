@@ -14,7 +14,7 @@ export function CsvForm() {
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("csvFile", data.csvFile[0]);
-    console.log(data);
+    // console.log(data);
 
     try {
       const response = await axios.post(
@@ -32,7 +32,7 @@ export function CsvForm() {
     }
   };
 
-  console.log("errors", errors);
+  // console.log("errors", errors);
 
   return (
     <div className="border-white border-4 p-10 border rounded rounded-3xl">
