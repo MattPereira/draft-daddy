@@ -11,12 +11,13 @@ export const authOptions = {
   callbacks: {
     // this function is called when a user signs in
     async signIn({ user, account, profile }) {
-      const socialId = `${account.provider}-${account.providerAccountId}`;
-      console.log("user", user);
-      console.log("account", account);
-      console.log("profile", profile);
-
+      // NOT SURE IF GOOGLE AND TWITTER PROVIDE THE SAME INFO AS GITHUB
       try {
+        const socialId = `${account.provider}-${account.providerAccountId}`;
+        console.log("user", user);
+        console.log("account", account);
+        console.log("profile", profile);
+
         // Make a request to backend to create or update the user
         const res = await fetch("http://localhost:8000/user/", {
           method: "POST",
@@ -36,7 +37,8 @@ export const authOptions = {
           return false;
         }
       } catch (err) {
-        console.log("CALLBACK ERROR", err);
+        console.log("signIn error", err);
+        throw new Error("Failed to sign in...");
       }
     },
   },
