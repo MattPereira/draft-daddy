@@ -7,5 +7,6 @@ from django.db import models
 
 class Profile(models.Model):
     name = models.CharField(max_length=200)
-    email = models.EmailField(unique=True)  # Ensures each email is unique
-    social_id = models.CharField(max_length=200, unique=True, null=True, blank=True)
+    email = models.EmailField()
+    provider_id = models.IntegerField(unique=True)
+    provider_name = models.CharField(max_length=200)

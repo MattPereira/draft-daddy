@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-import csv
+from .utils import process_csv
 
 
 @api_view(["GET"])
@@ -14,9 +14,7 @@ def csv_upload(request):
     csv_file = request.FILES.get("csvFile")
     user_id = request.POST.get("userId")
 
-    # processes the csv file
-    csv_data = csv_file.read().decode("utf-8")
-    reader = csv.reader(csv_data.splitlines())
-    rows = list(reader)
-    # print(rows[0])
+    # handles inserting data into the database for a specific user
+    process_csv(csv_file, user_id)
+
     return Response({"message": "successfully hit this post endpoint"})

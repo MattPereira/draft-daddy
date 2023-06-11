@@ -12,15 +12,21 @@ def create(request):
     data = json.loads(request.body)
     name = data.get("name")
     email = data.get("email")
-    social_id = data.get("social_id")
+    provider_id = data.get("provider_id")
+    provider_name = data.get("provider_name")
 
-    if not all([name, email, social_id]):
+    if not all([name, email, provider_id, provider_name]):
         return Response(
             {"error": "Missing required field"}, status=status.HTTP_400_BAD_REQUEST
         )
     try:
         profile, created = Profile.objects.get_or_create(
-            email=email, defaults={"name": name, "social_id": social_id}
+            email=email,
+            defaults={
+                "name": name,
+                "provider_id": provider_id,
+                "provider_name": provider_name,
+            },
         )
         profile_data = model_to_dict(profile)
 
