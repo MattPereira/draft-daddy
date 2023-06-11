@@ -8,7 +8,7 @@ export default async function Home() {
   // note that we dont' have to 'use client' in this server component
   // but we can still tell if there is a user session!
   const session = await getServerSession();
-  console.log("THIS IS THE SESSION!!!!!!!", session);
+  // console.log("HOMEPAGE SESSION", session);
 
   return (
     <main>

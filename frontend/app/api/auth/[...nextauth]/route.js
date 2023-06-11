@@ -9,14 +9,14 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    // this function is called when a user signs in
+    // triggered by attempted login
     async signIn({ user, account, profile }) {
       // NOT SURE IF GOOGLE AND TWITTER PROVIDE THE SAME INFO AS GITHUB
       try {
         const socialId = `${account.provider}-${account.providerAccountId}`;
-        console.log("user", user);
-        console.log("account", account);
-        console.log("profile", profile);
+        // console.log("user", user);
+        // console.log("account", account);
+        // console.log("profile", profile);
 
         // Make a request to backend to create or update the user
         const res = await fetch("http://localhost:8000/user/", {
@@ -31,7 +31,10 @@ export const authOptions = {
           }),
         });
 
+        // refactor this
         if (res.ok) {
+          const userData = await res.json();
+          profile.id = userData.id;
           return true;
         } else {
           return false;
@@ -40,6 +43,18 @@ export const authOptions = {
         console.log("signIn error", err);
         throw new Error("Failed to sign in...");
       }
+    },
+    // triggered whenever a jwt is created or updated (at login or session update)
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.id = profile.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Add property to session using the modified jwt token info
+      session.user.id = token.id;
+      return session;
     },
   },
 };
