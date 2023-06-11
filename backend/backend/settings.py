@@ -49,10 +49,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",  # Django REST framework
+    "corsheaders",
 ]
 
 
 MIDDLEWARE = [
+    # important cors is first so it can do its thing before middleware that generates responses happens
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -96,6 +99,11 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://draft-daddy.vercel.app",
+]
 
 
 # Password validation
