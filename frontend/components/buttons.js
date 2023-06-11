@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function SignInButton() {
   const { data: session, status } = useSession();
-  console.log("sign in button session", session, status);
+  // console.log("sign in button session", session, status);
 
   if (status === "loading") {
     return <>...</>;

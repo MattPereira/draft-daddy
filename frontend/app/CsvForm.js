@@ -1,20 +1,26 @@
 "use client";
-import { useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
 
 export function CsvForm() {
+  // session contains data about logged in user
+  const { data: session } = useSession();
+  console.log("csv form session", session);
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
+    // must use content-type multipart/form-data sending file over HTTP
+    // which requires FormData object
+    // sending the csvFile and userId to backend
     const formData = new FormData();
     formData.append("csvFile", data.csvFile[0]);
-    // console.log(data);
+    formData.append("userId", session.user.id);
 
     try {
       const response = await axios.post(
@@ -31,8 +37,6 @@ export function CsvForm() {
       console.log("ERROR", e.message);
     }
   };
-
-  // console.log("errors", errors);
 
   return (
     <div className="border-white border-4 p-10 border rounded rounded-3xl">

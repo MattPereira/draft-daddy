@@ -1,6 +1,13 @@
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
+/***
+ *  Add login provider options here
+ *
+ * The signIn callback handles creating user in db with POST request and returns user object
+ * so that userId can be passed to jwt and session so we can access userId on client side
+ */
+
 export const authOptions = {
   providers: [
     GithubProvider({
@@ -10,13 +17,15 @@ export const authOptions = {
   ],
   callbacks: {
     // triggered by attempted login
-    async signIn({ user, account, profile }) {
-      // NOT SURE IF GOOGLE AND TWITTER PROVIDE THE SAME INFO AS GITHUB
+    async signIn({ user, account, profile, email, credentials }) {
+      // Not sure if twitter and google will provide same data format for user, account, profile, ect.
+      // May have to conditionally handle each provider
       try {
-        const socialId = `${account.provider}-${account.providerAccountId}`;
         // console.log("user", user);
         // console.log("account", account);
         // console.log("profile", profile);
+        // console.log("email", email);
+        // console.log("credentials",credentials)
 
         // Make a request to backend to create or update the user
         const res = await fetch("http://localhost:8000/user/", {
@@ -27,15 +36,17 @@ export const authOptions = {
           body: JSON.stringify({
             name: user.name,
             email: user.email,
-            social_id: socialId,
+            provider_id: account.providerAccountId,
+            provider_name: account.provider,
           }),
         });
 
         // refactor this
         if (res.ok) {
           const userData = await res.json();
-          profile.id = userData.id;
-          return true;
+          user.id = userData.id;
+          console.log("signIn USER", user);
+          return user;
         } else {
           return false;
         }
@@ -45,14 +56,17 @@ export const authOptions = {
       }
     },
     // triggered whenever a jwt is created or updated (at login or session update)
-    async jwt({ token, account, profile }) {
+    async jwt({ token, account, user }) {
+      console.log("JWT user", user);
+      console.log("JWT account", account);
       if (account) {
-        token.id = profile.id;
+        token.id = user.id;
       }
       return token;
     },
+    // triggered whenever session is updated
     async session({ session, token }) {
-      // Add property to session using the modified jwt token info
+      console.log("session callback SESSION", session);
       session.user.id = token.id;
       return session;
     },
