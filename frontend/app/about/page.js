@@ -9,7 +9,7 @@ export default async function About() {
   return (
     <div className="py-10 text-white">
       <h1 className="font-cubano text-4xl mb-5">About</h1>
-      <p>We are a best ball draft analytics company</p>
+      <p>Best ball draft analytics for fantasy football</p>
     </div>
   );
 }

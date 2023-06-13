@@ -4,10 +4,9 @@ import { SignInButton, SignOutButton } from "../components/buttons";
 import AuthCheck from "@/components/AuthCheck";
 
 const navItems = [
+  { name: "Tournaments", href: "/tournaments" },
+
   { name: "About", href: "/about" },
-  { name: "Players", href: "/" },
-  { name: "Teams", href: "/" },
-  { name: "Matchups", href: "/" },
 ];
 
 // By default all components in Next.js are server components

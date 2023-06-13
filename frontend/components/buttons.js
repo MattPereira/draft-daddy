@@ -14,16 +14,16 @@ export function SignInButton() {
 
   if (status === "authenticated") {
     return (
-      <Link href={`/dashboard`} className="flex items-center">
-        <div className="rounded-full overflow-hidden">
-          <Image
-            src={session.user?.image ?? "/mememan.webp"}
-            width={32}
-            height={32}
-            alt="Your Name"
-          />
-        </div>
-      </Link>
+      // <Link href={`/dashboard`} className="flex items-center">
+      <div className="rounded-full overflow-hidden">
+        <Image
+          src={session.user?.image ?? "/mememan.webp"}
+          width={32}
+          height={32}
+          alt="Your Name"
+        />
+      </div>
+      // </Link>
     );
   }
 
