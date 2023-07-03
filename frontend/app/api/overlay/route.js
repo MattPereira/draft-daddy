@@ -7,7 +7,7 @@ export async function GET(request) {
 
   const sheetsResponse = await sheets.spreadsheets.values.get({
     spreadsheetId: "1qXX_OziGRULreow3w2YhvvJR__lYSyothvptO1MdZ3c",
-    range: "Combined Exposure!A3:Z500",
+    range: "Combined Exposure!A3:Z800",
     key: process.env.GOOGLE_SHEETS_API_KEY,
   });
 

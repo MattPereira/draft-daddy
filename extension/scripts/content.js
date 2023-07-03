@@ -5,29 +5,29 @@ let TEAMS_TO_STACK = new Set();
 let OVERLAY_OBJ;
 
 /***** Grab overlay data from local json file using background.js *****/
-function getOverlayObj() {
-  return new Promise((resolve, reject) => {
-    // Request the data from the background script
-    chrome.storage.local.get(["data"], function (result) {
-      OVERLAY_OBJ = JSON.parse(JSON.stringify(result.data)).data;
+// function getOverlayObj() {
+//   return new Promise((resolve, reject) => {
+//     // Request the data from the background script
+//     chrome.storage.local.get(["data"], function (result) {
+//       OVERLAY_OBJ = JSON.parse(JSON.stringify(result.data)).data;
 
-      console.log("OVERLAY_OBJ", OVERLAY_OBJ);
-      resolve();
-    });
-  });
-}
+//       console.log("OVERLAY_OBJ", OVERLAY_OBJ);
+//       resolve();
+//     });
+//   });
+// }
 
 /***** Fetch data from external api ****/
-// async function getOverlayObj() {
-//   try {
-//     const response = await fetch("https://draft-caddy.up.railway.app/");
-//     const resAsJson = await response.json();
-//     console.log("resAsJson", resAsJson);
-//     OVERLAY_OBJ = resAsJson.data;
-//   } catch (e) {
-//     console.log("Error fetching overlay data", e);
-//   }
-// }
+async function getOverlayObj() {
+  try {
+    const response = await fetch("https://draft-daddy.vercel.app/api/overlay");
+    const resAsJson = await response.json();
+    console.log("resAsJson", resAsJson);
+    OVERLAY_OBJ = resAsJson.data;
+  } catch (e) {
+    console.log("Error fetching overlay data", e);
+  }
+}
 
 // Function to manipulate DOM adding overlay
 function addOverlay(playerDiv) {
@@ -44,7 +44,7 @@ function addOverlay(playerDiv) {
 
   // change color of player team from available player to green if team is in TEAMS_TO_STACK
   if (TEAMS_TO_STACK.has(playerTeam)) {
-    console.log(playerName, "from team", playerTeam, "is in", TEAMS_TO_STACK);
+    // console.log(playerName, "from team", playerTeam, "is in", TEAMS_TO_STACK);
     playerTeamDiv[0].style.color = "#39FF14";
     playerTeamDiv[0].previousElementSibling.style.color = "#39FF14";
     playerTeamDiv[0].previousElementSibling.style.fontWeight = "bold";
