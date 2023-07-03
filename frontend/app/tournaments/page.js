@@ -1,4 +1,4 @@
-export const dynamic = "force-static"; // no necessary, just for demonstration
+// export const dynamic = "force-static"; // no necessary, just for demonstration
 
 export const metadata = {
   title: "Tournaments Page",
@@ -6,13 +6,25 @@ export const metadata = {
 };
 
 async function getTournaments() {
-  const res = await fetch("http://localhost:8000/analytics/tournaments");
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL}/analytics/tournaments`
+  // );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
+  try {
+    const res = await fetch(`/analytics/tournaments`);
+
+    if (!res.ok) {
+      console.log("I AM HERE");
+
+      throw new Error("Failed to fetch data");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log("I AM HERE 2");
+
+    console.error(error);
   }
-
-  return res.json();
 }
 
 function TableHeader({ children }) {
@@ -34,6 +46,15 @@ function TableCell({ children }) {
 export default async function Tournaments() {
   const tournaments = await getTournaments();
   console.log("tournaments", tournaments);
+
+  if (!tournaments) {
+    return (
+      <div className="text-white py-10 font-cubano text-4xl">
+        under construction...
+      </div>
+    );
+  }
+
   return (
     <div className="py-10 text-white">
       <h1 className="font-cubano text-4xl mb-5">Tournaments</h1>
