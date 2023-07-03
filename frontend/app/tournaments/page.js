@@ -1,17 +1,13 @@
-// export const dynamic = "force-static"; // no necessary, just for demonstration
-
 export const metadata = {
   title: "Tournaments Page",
   description: "See all the tournaments and how many drafts for each one",
 };
 
 async function getTournaments() {
-  // const res = await fetch(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL}/analytics/tournaments`
-  // );
-
   try {
-    const res = await fetch(`/analytics/tournaments`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/analytics/tournaments`
+    );
 
     if (!res.ok) {
       console.log("I AM HERE");
