@@ -1,6 +1,7 @@
+/*** Underdog changed player-id's at least once so now we match by player name instead ***/
+
 console.log("Draft Caddy Initiated!");
 
-// Global variables
 let TEAMS_TO_STACK = new Set();
 let OVERLAY_OBJ;
 
@@ -22,7 +23,6 @@ async function getOverlayObj() {
   try {
     const response = await fetch("https://draft-daddy.vercel.app/api/overlay");
     const resAsJson = await response.json();
-    console.log("resAsJson", resAsJson);
     OVERLAY_OBJ = resAsJson.data;
   } catch (e) {
     console.log("Error fetching overlay data", e);
@@ -50,8 +50,13 @@ function addOverlay(playerDiv) {
     playerTeamDiv[0].previousElementSibling.style.fontWeight = "bold";
   }
 
+  console.log(
+    "OVERLAY_OBJ",
+    OVERLAY_OBJ["e982859b-4fd9-410c-aad0-5deb58f40f65"]
+  );
+
   if (!OVERLAY_OBJ[playerId]) {
-    console.log(`No overlay dataq for ${playerName}`);
+    console.log(`No overlay data for ${playerName}, playerId: ${playerId}`);
     return;
   }
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# had to get fancy so that ctrl+c would kill both processes using PID
+
 # Save the current working directory
 PROJECT_DIR=$(pwd)
 

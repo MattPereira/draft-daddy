@@ -35,7 +35,7 @@ export async function GET(request) {
   const data = objectArray.reduce((obj, item) => {
     return {
       ...obj,
-      [item["id"]]: item,
+      [item["Player Name"]]: item,
     };
   }, initialValue);
 
