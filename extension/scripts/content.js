@@ -50,12 +50,9 @@ function addOverlay(playerDiv) {
     playerTeamDiv[0].previousElementSibling.style.fontWeight = "bold";
   }
 
-  console.log(
-    "OVERLAY_OBJ",
-    OVERLAY_OBJ["e982859b-4fd9-410c-aad0-5deb58f40f65"]
-  );
+  console.log("OVERLAY_OBJ", OVERLAY_OBJ[playerName]);
 
-  if (!OVERLAY_OBJ[playerId]) {
+  if (!OVERLAY_OBJ[playerName]) {
     console.log(`No overlay data for ${playerName}, playerId: ${playerId}`);
     return;
   }
@@ -66,7 +63,7 @@ function addOverlay(playerDiv) {
     ["Week 17"]: week17,
     ["Matt Total Exposure"]: mattExposure,
     ["Brad Total Exposure"]: bradExposure,
-  } = OVERLAY_OBJ[playerId];
+  } = OVERLAY_OBJ[playerName];
 
   // Select the div to play overlay text
   const overlayTarget = playerDiv.children[0].lastChild;
